@@ -45,6 +45,7 @@ public class WebSecurityConfig {
     }
 
 
+    //3.
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService);
