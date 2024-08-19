@@ -5,7 +5,7 @@
     <title>Welcome User</title>
 </head>
 <body>
-<h1>Welcome: <span sec:authentication="name"></span></h1>
+<h1>Welcome: <span th:text="${authenticatedUser.fullname + '('+ authenticatedUser.email +')' }"></span></h1>
 
 <form th:action="@{/logout}" method="post">
     <button type="submit">Sign out</button>

@@ -4,6 +4,7 @@ import com.samsung.basicsecurity.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -20,6 +21,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
+    private final String[] PUBLIC_ENPOINTS = {"/", "/home",
+            "/register","*.js", "*.css"
+    };
     @Autowired
     private UserService userService;
     //Nơi định nghĩa các cấu hình cho việc xác thực.
@@ -28,7 +32,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests)->requests
-                        .requestMatchers("/", "/home", "*.js", "*.css").permitAll()
+                        .requestMatchers(PUBLIC_ENPOINTS).permitAll()
                         .anyRequest().authenticated())
                 .formLogin((form)->form
                         .loginPage("/login")

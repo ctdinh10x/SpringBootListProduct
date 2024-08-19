@@ -23,4 +23,14 @@ public class UserService implements UserDetailsService {
         //2. return custom user details
         else return new CustomUserDetails(user);
     }
+
+    public void createUser(User newUser)
+    {
+        userRepository.save(newUser);
+    }
+
+    public User getUserByUserName(String username)
+    {
+        return userRepository.findByUsername(username);
+    }
 }
