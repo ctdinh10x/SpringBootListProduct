@@ -1,7 +1,11 @@
 package com.samsung.basicsecurity.configuration;
 
+import com.samsung.basicsecurity.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -14,7 +18,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class WebSecurityConfig {
+    @Autowired
+    private UserService userService;
     //Nơi định nghĩa các cấu hình cho việc xác thực.
     //ví dụ: Cái nào cần xacs thực, cái naofk hông?
     //Form xác thực là gì v.v..
@@ -37,6 +44,12 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder(10);
     }
 
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService);
+    }
+    /*
     @Bean
     public UserDetailsService userDetailsService(){
         UserDetails user1 = User.withUsername("user1")
@@ -50,5 +63,5 @@ public class WebSecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(user1, user2);
-    }
+    }*/
 }
