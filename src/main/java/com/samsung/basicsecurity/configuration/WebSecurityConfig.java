@@ -22,7 +22,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class WebSecurityConfig {
     private final String[] PUBLIC_ENPOINTS = {"/", "/home",
-            "/register","*.js", "*.css"
+            "/register","*.js", "*.css", "/shopping/*"
     };
     @Autowired
     private UserService userService;

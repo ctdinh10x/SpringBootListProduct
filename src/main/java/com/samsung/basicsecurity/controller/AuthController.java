@@ -2,6 +2,7 @@ package com.samsung.basicsecurity.controller;
 
 import com.samsung.basicsecurity.repositories.models.User;
 import com.samsung.basicsecurity.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,14 +21,18 @@ public class AuthController {
     @Autowired
     UserService userService;
     @GetMapping("/login")
-    public String Login()
+    public String Login(HttpSession session)
     {
+        //Luu gia tri vao trong session voi key la msg
+        session.setAttribute("msg", "Login message");
         return "Auth/login";
     }
 
     @GetMapping("/register")
-    public String Register(final Model model){
+    public String Register(final Model model, HttpSession session){
         model.addAttribute("newuser", new User());
+        String message = (String) session.getAttribute("msg");
+        model.addAttribute("msg", message);
         return "Auth/register";
     }
 
