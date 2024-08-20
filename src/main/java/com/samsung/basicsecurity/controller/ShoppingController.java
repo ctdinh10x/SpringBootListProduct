@@ -54,4 +54,9 @@ public class ShoppingController {
         model.addAttribute("cart", cart);
         return "shoppingcart";
     }
+
+    @GetMapping("/shopping/products")
+    public String ViewProducts(){
+        return "ShoppingCarts";
+    }
 }

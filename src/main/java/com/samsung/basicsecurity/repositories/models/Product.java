@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "products")
 @Data
@@ -20,4 +22,8 @@ public class Product {
     private String name;
     private String picture;
     private long price;
+    private String description;
+    @ManyToOne
+    @JoinColumn(name = "catalog_Id")  // tên cột khóa ngoại trong bảng Product
+    private Catalogs catalog;
 }

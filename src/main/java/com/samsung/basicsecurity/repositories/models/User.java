@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -25,4 +27,8 @@ public class User {
     private String fullname;
     private String phone;
     private String email;
+    @Column(columnDefinition = "BIT 0")
+    private Boolean status;
+    @OneToMany(mappedBy = "user")
+    private Set<Orders> orders;
 }
